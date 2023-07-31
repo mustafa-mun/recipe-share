@@ -7,18 +7,58 @@
     <style>
       button {
         cursor: pointer;
+        background-color: #190c8d;
+        color: #ffffff;
+        font-weight: 600;
+        position: relative;
+        outline: none;
+        border-radius: 10px;
+        cursor: pointer;
+        padding: 8px 16px;
+      }
+
+      .header-div {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      h1 {
+        color: #190c8d;
+      }
+
+      header {
+        margin: 10px 30px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
       }
     </style>
   </head>
   <body>
     <header>
-      <h1>Recipe Share</h1>
-      <a href="{% url 'sign-up' %}">
-        <button>Sign up</button>
+      <a style="text-decoration: none" href="{% url 'home' %}">
+        <h1>Recipe Share</h1>
       </a>
-      <a href="">
-        <button>Log in</button>
-      </a>
+      {% if user.is_authenticated %}
+      <div class="header-div">
+        <a href="{% url 'log-out' %}">
+          <button>Log out</button>
+        </a>
+        <a href="">
+          <h3>{{ user.username }}</h3>
+        </a>
+      </div>
+      {% else %}
+      <div class="header-div">
+        <a href="{% url 'sign-up' %}">
+          <button>Sign up</button>
+        </a>
+        <a href="{% url 'log-in' %}">
+          <button>Log in</button>
+        </a>
+      </div>
+      {% endif %}
     </header>
 
     {% block content %} {% endblock %}
