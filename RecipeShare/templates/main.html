@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ title }}</title>
+    <title>Recipe Share</title>
     <style>
       button {
         cursor: pointer;
@@ -11,7 +11,15 @@
     </style>
   </head>
   <body>
-    <h1>Recipe Share</h1>
+    <header>
+      <h1>Recipe Share</h1>
+      <a href="{% url 'sign-up' %}">
+        <button>Sign up</button>
+      </a>
+      <a href="">
+        <button>Log in</button>
+      </a>
+    </header>
 
     {% block content %} {% endblock %}
   </body>
