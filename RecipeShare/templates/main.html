@@ -1,28 +1,38 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Recipe Share</title>
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="{% static 'images/favicon.png' %}"
+    />
     <style>
       body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
         padding: 20px;
       }
       .header-div {
         display: flex;
         align-items: center;
         gap: 20px;
+        margin-right: 50px;
       }
 
       h1 {
         color: #190c8d;
+        margin-right: 20px;
       }
 
-      header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 50px;
+      nav {
+        width: 100vw;
+        margin-bottom: 100px;
       }
     </style>
     <link
@@ -38,30 +48,94 @@
     ></script>
   </head>
   <body>
-    <header class="container">
-      <a style="text-decoration: none" href="{% url 'home' %}">
-        <h1>Recipe Share</h1>
-      </a>
-      {% if user.is_authenticated %}
-      <div class="header-div">
-        <a href="{% url 'log-out' %}">
-          <button class="btn btn-danger">Log out</button>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a>
+          <h1 style="color: #190c8d">Recipe Share</h1>
         </a>
-        <a href="">
-          <h3>{{ user.username }}</h3>
-        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                aria-current="page"
+                href="{% url 'home' %}"
+                >Home</a
+              >
+            </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Create Recipe</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="#">Link</a>
+            </li>
+            {% endif %}
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Dropdown
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Cuisines</a></li>
+                <li><a class="dropdown-item" href="#">Recipe Types</a></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <a class="dropdown-item" href="#">Advanced Search</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          {% if user.is_authenticated %}
+          <div class="header-div">
+            <a href="{% url 'log-out' %}">
+              <button class="btn btn-danger">Log out</button>
+            </a>
+            <a href="">
+              <h3>{{ user.username }}</h3>
+            </a>
+          </div>
+          {% else %}
+          <div class="header-div">
+            <a href="{% url 'sign-up' %}">
+              <button class="btn btn-primary">Sign up</button>
+            </a>
+            <a href="{% url 'log-in' %}">
+              <button class="btn btn-primary">Log in</button>
+            </a>
+          </div>
+          {% endif %}
+          <form class="d-flex" role="search">
+            <input
+              class="form-control me-2"
+              type="search"
+              placeholder="Search recipe..."
+              aria-label="Search"
+            />
+            <button class="btn btn-outline-success" type="submit">
+              Search
+            </button>
+          </form>
+        </div>
       </div>
-      {% else %}
-      <div class="header-div">
-        <a href="{% url 'sign-up' %}">
-          <button class="btn btn-primary">Sign up</button>
-        </a>
-        <a href="{% url 'log-in' %}">
-          <button class="btn btn-primary">Log in</button>
-        </a>
-      </div>
-      {% endif %}
-    </header>
+    </nav>
 
     {% block content %} {% endblock %}
   </body>
