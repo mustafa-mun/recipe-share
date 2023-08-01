@@ -1,0 +1,63 @@
+{% extends 'main.html' %} {% block content %}
+<form method="post" action="">
+  {% csrf_token %}
+  <div class="mb-2">
+    <label for="first_name" class="form-label">First name</label>
+    <input
+      type="text"
+      class="form-control"
+      name="first_name"
+      required
+      minlength="2"
+    />
+  </div>
+  <div class="mb-2">
+    <label for="last_name" class="form-label">Last name</label>
+    <input
+      type="text"
+      name="last_name"
+      class="form-control"
+      required
+      minlength="2"
+    />
+  </div>
+  <div class="mb-2">
+    <label for="username" class="form-label">Username</label>
+    <input
+      type="text"
+      name="username"
+      class="form-control"
+      required
+      minlength="5"
+    />
+  </div>
+  <div class="mb-2">
+    <label for="password" class="form-label">Password</label>
+    <input
+      type="password"
+      name="password"
+      class="form-control"
+      required
+      minlength="8"
+    />
+  </div>
+  <div class="mb-2">
+    <label for="password" class="form-label">Password Again</label>
+    <input
+      type="password"
+      name="password2"
+      class="form-control"
+      required
+      minlength="8"
+    />
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+{% if messages %}
+<ul class="messages">
+  {% for message in messages %}
+  <li>{{ message }}</li>
+  {% endfor %}
+</ul>
+{% endif %} {% endblock %}
