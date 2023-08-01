@@ -5,18 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Recipe Share</title>
     <style>
-      button {
-        cursor: pointer;
-        background-color: #190c8d;
-        color: #ffffff;
-        font-weight: 600;
-        position: relative;
-        outline: none;
-        border-radius: 10px;
-        cursor: pointer;
-        padding: 8px 16px;
+      body {
+        padding: 20px;
       }
-
       .header-div {
         display: flex;
         align-items: center;
@@ -28,22 +19,33 @@
       }
 
       header {
-        margin: 10px 30px;
         display: flex;
         align-items: center;
         justify-content: space-between;
+        margin-bottom: 50px;
       }
     </style>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
-    <header>
+    <header class="container">
       <a style="text-decoration: none" href="{% url 'home' %}">
         <h1>Recipe Share</h1>
       </a>
       {% if user.is_authenticated %}
       <div class="header-div">
         <a href="{% url 'log-out' %}">
-          <button>Log out</button>
+          <button class="btn btn-danger">Log out</button>
         </a>
         <a href="">
           <h3>{{ user.username }}</h3>
@@ -52,10 +54,10 @@
       {% else %}
       <div class="header-div">
         <a href="{% url 'sign-up' %}">
-          <button>Sign up</button>
+          <button class="btn btn-primary">Sign up</button>
         </a>
         <a href="{% url 'log-in' %}">
-          <button>Log in</button>
+          <button class="btn btn-primary">Log in</button>
         </a>
       </div>
       {% endif %}
