@@ -42,7 +42,7 @@ class RecipeMainIngredient(models.Model):
   )
   
   def __str__(self) -> str:
-    return self.ingredient_name
+    return str(self.id)
 
 class Ingredient(models.Model):
   id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -65,4 +65,4 @@ class RecipeIngredient(models.Model):
   )
   
   def __str__(self) -> str:
-    return self.ingredient_name
+    return str(self.id)
