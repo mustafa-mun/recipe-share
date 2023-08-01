@@ -114,3 +114,27 @@ class RecipeIngredient(models.Model):
   
   def __str__(self) -> str:
     return str(self.id)
+  
+
+class PrepTime(models.Model):
+  id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+  prep_time = models.CharField(max_length=50, unique=True)
+    
+  def __str__(self) -> str:
+    return self.prep_time
+  
+class RecipePrepTimes(models.Model):
+  id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+  recipe = models.ForeignKey(
+      Recipe,
+      on_delete=models.CASCADE,
+      null=True
+  )  
+  prep_time = models.ForeignKey(
+      PrepTime,
+      on_delete=models.CASCADE,
+      null=True
+  )
+  
+  def __str__(self) -> str:
+    return str(self.id)
