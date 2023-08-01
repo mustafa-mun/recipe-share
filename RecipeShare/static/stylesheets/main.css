@@ -1,0 +1,32 @@
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.header-div {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-right: 50px;
+}
+
+h1 {
+  color: #190c8d;
+  margin-right: 20px;
+}
+
+nav {
+  width: 100vw;
+  margin-bottom: 100px;
+}
+
+footer {
+  position: absolute;
+  bottom: 5px;
+  font-size: 19px;
+}
+.nav-item {
+  margin-right: 15px;
+}

@@ -10,37 +10,18 @@
       type="image/png"
       href="{% static 'images/favicon.png' %}"
     />
-    <style>
-      body {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 20px;
-      }
-      .header-div {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        margin-right: 50px;
-      }
-
-      h1 {
-        color: #190c8d;
-        margin-right: 20px;
-      }
-
-      nav {
-        width: 100vw;
-        margin-bottom: 100px;
-      }
-    </style>
+    <link rel="stylesheet" href="{% static 'stylesheets/main.css' %}" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
       crossorigin="anonymous"
     />
+    <script
+      src="https://kit.fontawesome.com/9864d609d0.js"
+      crossorigin="anonymous"
+    ></script>
+
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
@@ -78,9 +59,18 @@
             <li class="nav-item">
               <a class="nav-link active" href="#">Create Recipe</a>
             </li>
-            {% else %}
+            {% endif %} {% if user.is_superuser %}
             <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
+              <a class="nav-link active" href="#">Create Recipe Type</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Create Ingredient</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Create Main Ingredient</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Create Prep Time</a>
             </li>
             {% endif %}
             <li class="nav-item dropdown">
@@ -138,5 +128,13 @@
     </nav>
 
     {% block content %} {% endblock %}
+    <footer>
+      <p>
+        Copyright &#169; 2023 mustafa-mun
+        <a href="https://github.com/mustafa-mun" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      </p>
+    </footer>
   </body>
 </html>
