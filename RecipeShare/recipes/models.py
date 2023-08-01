@@ -21,6 +21,28 @@ class Recipe(models.Model):
   def __str__(self) -> str:
     return self.recipe_name
   
+class MainIngredient(models.Model):
+  id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+  ingredient_name = models.CharField(max_length=100)
+    
+  def __str__(self) -> str:
+    return self.ingredient_name
+  
+class RecipeMainIngredient(models.Model):
+  id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+  recipe = models.ForeignKey(
+      Recipe,
+      on_delete=models.CASCADE,
+      null=True
+  )  
+  main_ingredient = models.ForeignKey(
+      MainIngredient,
+      on_delete=models.CASCADE,
+      null=True
+  )
+  
+  def __str__(self) -> str:
+    return self.ingredient_name
 
 class Ingredient(models.Model):
   id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
