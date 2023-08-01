@@ -44,6 +44,30 @@ class RecipeCuisine(models.Model):
   
   def __str__(self) -> str:
     return str(self.id)
+  
+
+class Type(models.Model):
+  id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+  type_name = models.CharField(max_length=100)
+    
+  def __str__(self) -> str:
+    return self.type_name
+  
+class RecipeTypes(models.Model):
+  id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+  recipe = models.ForeignKey(
+      Recipe,
+      on_delete=models.CASCADE,
+      null=True
+  )  
+  type = models.ForeignKey(
+      Type,
+      on_delete=models.CASCADE,
+      null=True
+  )
+  
+  def __str__(self) -> str:
+    return str(self.id)
 
 class MainIngredient(models.Model):
   id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
