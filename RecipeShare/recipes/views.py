@@ -2,8 +2,12 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import MainIngredient, Cuisine, PrepTime, Type, Recipe, RecipeCuisine, RecipeMainIngredient, RecipePrepTimes, RecipeTypes
 
-# Create your views here.
 def recipes(request):
+     # check if user is authenticated
+    if not request.user.is_authenticated:
+        # user is not logged in
+        return redirect('log-in') # redirect to login page
+        
     main_ingredients = MainIngredient.objects.all()
     recipe_types = Type.objects.all()
     prep_times = PrepTime.objects.all()
@@ -17,7 +21,6 @@ def recipes(request):
     }
     if request.method == 'POST':
         form = request.POST
-
         # create recipe
         try:
             recipe = Recipe(
