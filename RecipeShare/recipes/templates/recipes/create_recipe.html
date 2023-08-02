@@ -1,0 +1,122 @@
+{% extends 'main.html' %} {% block content %}
+<form method="post" action="">
+  {% csrf_token %}
+
+  <div class="row">
+    <!-- First column -->
+    <div class="col-md-6">
+      <div class="mb-3">
+        <label for="recipe_name" class="form-label">Recipe Name</label>
+        <input
+          type="text"
+          class="form-control form-control-md"
+          name="recipe_name"
+          required
+          placeholder="Name of your recipe..."
+        />
+      </div>
+      <div class="mb-3">
+        <label for="recipe_description" class="form-label"
+          >Recipe Description</label
+        >
+        <input
+          type="text"
+          class="form-control form-control-md"
+          name="recipe_description"
+          placeholder="Describe your recipe (optional)..."
+        />
+      </div>
+      <div class="mb-3">
+        <label for="recipe_image" class="form-label">Recipe Image</label>
+        <input
+          type="text"
+          class="form-control form-control-md"
+          name="recipe_image"
+          placeholder="URL of the recipe image (optional)..."
+        />
+      </div>
+      <div class="mb-3">
+        <label for="recipe_method" class="form-label">Recipe Method</label>
+        <textarea
+          class="form-control form-control-md"
+          name="recipe_method"
+          rows="4"
+          required
+          minlength="50"
+          placeholder="Step-by-step method for the recipe..."
+        ></textarea>
+      </div>
+    </div>
+
+    <!-- Second column -->
+    <div class="col-md-6">
+      <label for="main_ingredient" class="form-label">Main Ingredient</label>
+      <select
+        name="main_ingredient"
+        class="form-select mb-2"
+        aria-label="Default select example"
+      >
+        {% for ingredient in main_ingredients %}
+        <option value="{{ingredient}}">{{ ingredient }}</option>
+        {% endfor %}
+      </select>
+
+      <label for="cuisine" class="form-label">Cuisine</label>
+      <select
+        name="cuisine"
+        class="form-select mb-2"
+        aria-label="Default select example"
+      >
+        {% for cuisine in cuisines %}
+        <option value="{{cuisine}}">{{ cuisine }}</option>
+        {% endfor %}
+      </select>
+
+      <label for="recipe_type" class="form-label">Recipe Type</label>
+      <select
+        name="recipe_type"
+        class="form-select mb-2"
+        aria-label="Default select example"
+      >
+        {% for recipe_type in recipe_types %}
+        <option value="{{recipe_type}}">{{ recipe_type }}</option>
+        {% endfor %}
+      </select>
+
+      <label for="prep_time" class="form-label">Preparation Time</label>
+      <select
+        name="prep_time"
+        class="form-select mb-2"
+        aria-label="Default select example"
+      >
+        {% for prep_time in prep_times %}
+        <option value="{{prep_time}}">{{ prep_time }}</option>
+        {% endfor %}
+      </select>
+      <div class="mb-3">
+        <label for="recipe_ingredients" class="form-label"
+          >Recipe Ingredients</label
+        >
+        <textarea
+          placeholder="List all ingredients needed..."
+          required
+          minlength="20"
+          class="form-control form-control-md"
+          name="recipe_ingredients"
+          rows="4"
+        ></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- Submit button -->
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+{% if messages %}
+<ul class="messages">
+  {% for message in messages %}
+  <li>{{ message }}</li>
+  {% endfor %}
+</ul>
+{% endif %} {% endblock %}
