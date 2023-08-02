@@ -57,7 +57,9 @@
             </li>
             {% if user.is_authenticated %}
             <li class="nav-item">
-              <a class="nav-link active" href="#">Create Recipe</a>
+              <a class="nav-link active" href="{% url 'recipes' %}"
+                >Create Recipe</a
+              >
             </li>
             {% endif %}
             <li class="nav-item dropdown">

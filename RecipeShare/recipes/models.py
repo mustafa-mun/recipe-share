@@ -11,9 +11,10 @@ class Recipe(models.Model):
       on_delete=models.SET_NULL,
       null=True
   )
-  recipe_name = models.CharField(max_length=150)
+  recipe_name = models.CharField(max_length=150, unique=True)
   recipe_description = models.TextField(null=True, blank=True)
   recipe_method = models.TextField(default="")
+  recipe_ingredients = models.TextField(default="", max_length=2000)
   recipe_image = models.TextField(default="https://thehalalworld.com/uploads/pages/Sardine-tea-sandwiches.jpg")
   updated_at = models.DateTimeField(auto_now=True)
   created_at = models.DateTimeField(auto_now_add=True)
@@ -91,30 +92,6 @@ class RecipeMainIngredient(models.Model):
   
   def __str__(self) -> str:
     return str(self.id)
-
-class Ingredient(models.Model):
-  id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-  ingredient_name = models.CharField(max_length=100, unique=True)
-    
-  def __str__(self) -> str:
-    return self.ingredient_name
-  
-class RecipeIngredient(models.Model):
-  id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-  recipe = models.ForeignKey(
-      Recipe,
-      on_delete=models.CASCADE,
-      null=True
-  )  
-  ingredient = models.ForeignKey(
-      Ingredient,
-      on_delete=models.CASCADE,
-      null=True
-  )
-  
-  def __str__(self) -> str:
-    return str(self.id)
-  
 
 class PrepTime(models.Model):
   id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
