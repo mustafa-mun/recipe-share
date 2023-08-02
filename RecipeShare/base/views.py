@@ -2,12 +2,13 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
-
+from recipes.models import Recipe
 # Create your views here.
 
 
 def home_page(request):
-    context = {  } # add contenxt later
+    recipes = Recipe.objects.all()
+    context = { 'recipes':recipes } # add contenxt later
     return render(request, 'base/home.html', context)
 
 def sign_up(request):
