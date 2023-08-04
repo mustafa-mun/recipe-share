@@ -1,6 +1,7 @@
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import MainIngredient, Cuisine, PrepTime, Type, Recipe, RecipeCuisine, RecipeMainIngredient, RecipePrepTimes, RecipeTypes
+from .models import MainIngredient, Cuisine, PrepTime, Type, Recipe
+from .forms import MainIngredientForm
 
 def recipes(request):
      # check if user is authenticated
@@ -27,7 +28,11 @@ def recipes(request):
             recipe_author=request.user, 
             recipe_name = form['recipe_name'],
             recipe_method = form['recipe_method'],
-            recipe_ingredients = form['recipe_ingredients']
+            recipe_ingredients = form['recipe_ingredients'],
+            recipe_cuisine = form['cuisine'],
+            recipe_main_ingredient = form['main_ingredient'],
+            recipe_type = form['recipe_type'],
+            recipe_prep_time = form['prep_time']
             )
             # include optional fields if they exist
             if form['recipe_description'] is not '':
@@ -35,27 +40,7 @@ def recipes(request):
             if form['recipe_image'] is not '':
                 recipe.recipe_image = form['recipe_image']
             recipe.save()
-
-            # create recipe cuisine
-            cuisine = Cuisine.objects.get(cuisine_name = form['cuisine'])
-            recipe_cuisine = RecipeCuisine(recipe=recipe, cuisine=cuisine)
-            recipe_cuisine.save()
-            
-            # create recipe main ingredient
-            main_ingredient = MainIngredient.objects.get(ingredient_name = form['main_ingredient'])
-            recipe_main_ingredient = RecipeMainIngredient(recipe=recipe, main_ingredient= main_ingredient)
-            recipe_main_ingredient.save()
-
-             # create recipe recipe_type
-            type = Type.objects.get(type_name = form['recipe_type'])
-            recipe_type = RecipeTypes(recipe=recipe, type= type)
-            recipe_type.save()
-
-             # create recipe prep_time
-            prep_time = PrepTime.objects.get(prep_time = form['prep_time'])
-            recipe_prep_time = RecipePrepTimes(recipe=recipe, prep_time= prep_time)
-            recipe_prep_time.save()
-            
+         
             return redirect('home')
         # handle errors
         except Exception as e:
@@ -66,16 +51,22 @@ def recipes(request):
 
 def handle_recipe_pages(request, id):
     recipe = Recipe.objects.get(id=id)
-    recipe_cuisine = RecipeCuisine.objects.get(recipe=recipe)
-    recipe_type = RecipeTypes.objects.get(recipe=recipe)
-    recipe_prep_time = RecipePrepTimes.objects.get(recipe=recipe)
-    recipe_main_ingredient = RecipeMainIngredient.objects.get(recipe=recipe)
 
     context = {
         'recipe': recipe,
-        'recipe_cuisine': recipe_cuisine.cuisine,
-        'recipe_type': recipe_type.type,
-        'recipe_main_ingredient': recipe_main_ingredient.main_ingredient,
-        'recipe_prep_time': recipe_prep_time.prep_time
+        
     }
     return render(request, 'recipes/recipe.html', context)
+
+def create_main_ingredients(request):
+    if request.user.is_superuser:
+        if request.method == 'GET':
+            form = MainIngredientForm().as_p
+            context = { 'form': form }
+            return render(request, 'form.html', context)
+        
+        if request.method == 'POST':
+            form = MainIngredientForm(request.POST)
+            if form.is_valid():
+                form.save()
+    return redirect('home')  # Redirect to a home page
