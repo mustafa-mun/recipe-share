@@ -1,9 +1,8 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from django.db.models import Q
 from django.shortcuts import render, redirect
-from recipes.models import Recipe, RecipeMainIngredient
+from recipes.models import Recipe
 # Create your views here.
 
 
