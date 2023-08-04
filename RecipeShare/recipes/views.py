@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import MainIngredient, Cuisine, PrepTime, Type, Recipe
-from .forms import MainIngredientForm
 
 def recipes(request):
      # check if user is authenticated
@@ -24,23 +23,24 @@ def recipes(request):
         form = request.POST
         # create recipe
         try:
-            recipe = Recipe(
-            recipe_author=request.user, 
+            recipe = Recipe (
+            recipe_author= request.user, 
             recipe_name = form['recipe_name'],
             recipe_method = form['recipe_method'],
             recipe_ingredients = form['recipe_ingredients'],
-            recipe_cuisine = form['cuisine'],
-            recipe_main_ingredient = form['main_ingredient'],
-            recipe_type = form['recipe_type'],
-            recipe_prep_time = form['prep_time']
+            recipe_cuisine = Cuisine.objects.get(cuisine_name = form['cuisine']),
+            recipe_main_ingredient = MainIngredient.objects.get(ingredient_name = form['main_ingredient']),
+            recipe_type = Type.objects.get(type_name = form['recipe_type']),
+            recipe_prep_time = PrepTime.objects.get(prep_time = form['prep_time']),
             )
+
             # include optional fields if they exist
             if form['recipe_description'] is not '':
                 recipe.recipe_description = form['recipe_description']
             if form['recipe_image'] is not '':
                 recipe.recipe_image = form['recipe_image']
             recipe.save()
-         
+
             return redirect('home')
         # handle errors
         except Exception as e:
@@ -58,15 +58,13 @@ def handle_recipe_pages(request, id):
     }
     return render(request, 'recipes/recipe.html', context)
 
-def create_main_ingredients(request):
-    if request.user.is_superuser:
-        if request.method == 'GET':
-            form = MainIngredientForm().as_p
-            context = { 'form': form }
-            return render(request, 'form.html', context)
-        
-        if request.method == 'POST':
-            form = MainIngredientForm(request.POST)
-            if form.is_valid():
-                form.save()
-    return redirect('home')  # Redirect to a home page
+def handle_main_ingredients(request):
+    pass
+
+def handle_recipe_types(request):
+    pass
+
+def handle_cuisines(request):
+    pass
+
+

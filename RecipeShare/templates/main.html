@@ -75,32 +75,12 @@
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="#">Cuisines</a></li>
                 <li><a class="dropdown-item" href="#">Recipe Types</a></li>
+                <li><a class="dropdown-item" href="#">Main Ingredients</a></li>
+
                 <li><hr class="dropdown-divider" /></li>
                 <li>
                   <a class="dropdown-item" href="#">Advanced Search</a>
                 </li>
-                {% if user.is_superuser %}
-                <li>
-                  <hr class="dropdown-divider" />
-                </li>
-                <li>
-                  <a class="dropdown-item" href="#">Create Recipe Type</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="#">Create Cuisine</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="#">Create Ingredient</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="{% url 'main-ingredients' %}"
-                    >Create Main Ingredient</a
-                  >
-                </li>
-                <li>
-                  <a class="dropdown-item" href="#">Create Prep Time</a>
-                </li>
-                {% endif %}
               </ul>
             </li>
           </ul>
