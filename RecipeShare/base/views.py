@@ -1,13 +1,18 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.db.models import Q
 from django.shortcuts import render, redirect
-from recipes.models import Recipe
+from recipes.models import Recipe, RecipeMainIngredient
 # Create your views here.
 
 
 def home_page(request):
-    recipes = Recipe.objects.all()
+    q = request.GET.get('q')
+    if q is not None:
+        recipes = Recipe.objects.filter(recipe_name__icontains=q)
+    else:
+        recipes = Recipe.objects.all()
     context = { 'recipes':recipes } # add contenxt later
     return render(request, 'base/home.html', context)
 

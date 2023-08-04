@@ -121,13 +121,20 @@
             </a>
           </div>
           {% endif %}
-          <form class="d-flex" role="search">
+          <form
+            method="get"
+            action="{% url 'home' %}"
+            class="d-flex"
+            role="search"
+          >
             <input
               class="form-control me-2"
               type="search"
               placeholder="Search recipe..."
               aria-label="Search"
+              name="q"
             />
+
             <button class="btn btn-outline-success" type="submit">
               Search
             </button>
