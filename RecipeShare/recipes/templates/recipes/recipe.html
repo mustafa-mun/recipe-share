@@ -1,0 +1,83 @@
+{% extends 'main.html' %} {% block content %}
+<div class="container">
+  <h1><span style="color: #190c8d">Recipe:</span> {{ recipe.recipe_name }}</h1>
+  <p style="font-size: 19px">
+    By
+    <span style="text-decoration: underline; font-weight: bold"
+      >{{recipe.recipe_author}}</span
+    >
+    <span style="color: rgb(158, 158, 158)">|</span>
+    <span style="font-size: 16px; color: rgb(136, 135, 135)"
+      >Updated at: {{recipe.updated_at}}</span
+    >
+  </p>
+  <img
+    style="width: 800px; height: 500px; object-fit: cover"
+    src="{{recipe.recipe_image}}"
+    alt="recipe_image"
+  />
+  <p>
+    <span
+      style="color: #190c8d; font-size: 20px; text-decoration: underline"
+      class="recipe-page-label"
+      >Description:</span
+    >
+    {{recipe.recipe_description}}
+  </p>
+  <br />
+  <br />
+  <p>
+    <span
+      style="color: #190c8d; font-size: 20px; text-decoration: underline"
+      class="recipe-page-label"
+      >Ingredients:</span
+    >
+    {{recipe.recipe_ingredients}}
+  </p>
+  <br />
+  <br />
+  <p>
+    <span
+      style="color: #190c8d; font-size: 20px; text-decoration: underline"
+      class="recipe-page-label"
+      >Method:</span
+    >
+    {{recipe.recipe_method}}
+  </p>
+  <br />
+  <div
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      background-color: rgb(216, 214, 214);
+      width: 100%;
+    "
+    class="container-md"
+  >
+    <div style="display: flex; flex-direction: column; align-items: center">
+      <p style="font-weight: bold">Main Ingredient:</p>
+      <p>{{recipe_main_ingredient}}</p>
+    </div>
+    <div style="display: flex; flex-direction: column; align-items: center">
+      <p style="font-weight: bold">Preperation Time:</p>
+      <p>{{recipe_prep_time}}</p>
+    </div>
+    <div style="display: flex; flex-direction: column; align-items: center">
+      <p style="font-weight: bold">Cuisine:</p>
+      <p>{{recipe_cuisine}}</p>
+    </div>
+    <div style="display: flex; flex-direction: column; align-items: center">
+      <p style="font-weight: bold">Recipe Type:</p>
+      <p>{{recipe_type}}</p>
+    </div>
+  </div>
+</div>
+
+{% if messages %}
+<ul class="messages">
+  {% for message in messages %}
+  <li>{{ message }}</li>
+  {% endfor %}
+</ul>
+{% endif %} {% endblock %}

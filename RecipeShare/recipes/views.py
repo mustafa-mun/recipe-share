@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
 from .models import MainIngredient, Cuisine, PrepTime, Type, Recipe, RecipeCuisine, RecipeMainIngredient, RecipePrepTimes, RecipeTypes
 
@@ -62,3 +62,20 @@ def recipes(request):
             messages.warning(request, e)
 
     return render(request, 'recipes/create_recipe.html', context)
+
+
+def handle_recipe_pages(request, id):
+    recipe = Recipe.objects.get(id=id)
+    recipe_cuisine = RecipeCuisine.objects.get(recipe=recipe)
+    recipe_type = RecipeTypes.objects.get(recipe=recipe)
+    recipe_prep_time = RecipePrepTimes.objects.get(recipe=recipe)
+    recipe_main_ingredient = RecipeMainIngredient.objects.get(recipe=recipe)
+
+    context = {
+        'recipe': recipe,
+        'recipe_cuisine': recipe_cuisine.cuisine,
+        'recipe_type': recipe_type.type,
+        'recipe_main_ingredient': recipe_main_ingredient.main_ingredient,
+        'recipe_prep_time': recipe_prep_time.prep_time
+    }
+    return render(request, 'recipes/recipe.html', context)

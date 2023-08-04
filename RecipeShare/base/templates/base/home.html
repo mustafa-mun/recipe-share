@@ -37,7 +37,7 @@
       {% endif %}
 
       <p>Posted by <a href="">{{ recipe.recipe_author }}</a></p>
-      <a href="#">
+      <a href="{% url 'recipe-page' recipe.id %}">
         <button class="btn btn-warning">See More</button>
       </a>
     </div>
