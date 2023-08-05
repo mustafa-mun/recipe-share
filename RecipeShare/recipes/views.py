@@ -58,13 +58,47 @@ def handle_recipe_pages(request, id):
     }
     return render(request, 'recipes/recipe.html', context)
 
-def handle_main_ingredients(request):
-    pass
+def get_main_ingredients(request):
+    main_ingredients = MainIngredient.objects.all()
+    context = { 
+        'objects': main_ingredients,
+        'obj_type': 'main-ingredients'
+    }
+    return render(request, 'obj.html', context)
 
-def handle_recipe_types(request):
-    pass
+def get_recipe_types(request):
+    recipe_types = Type.objects.all()
+    context = { 
+        'objects': recipe_types,
+        'obj_type': 'recipe_types'
+    }
+    return render(request, 'obj.html', context)
 
-def handle_cuisines(request):
-    pass
+def get_cuisines(request):
+    cuisines = Cuisine.objects.all()
+    context = { 
+        'objects': cuisines,
+        'obj_type': 'cuisines'
+    }
+    return render(request, 'obj.html', context)
 
+def handle_main_ingredients(request, id):
+    recipes = Recipe.objects.filter(recipe_main_ingredient=id)
+    context = {
+        'recipes': recipes,
+    } 
+    return render(request, 'base/home.html', context)
 
+def handle_recipe_types(request, id):
+    recipes = Recipe.objects.filter(recipe_type=id)
+    context = {
+        'recipes': recipes,
+    } 
+    return render(request, 'base/home.html', context)
+
+def handle_cuisines(request, id):
+    recipes = Recipe.objects.filter(recipe_cuisine=id)
+    context = {
+        'recipes': recipes,
+    } 
+    return render(request, 'base/home.html', context)

@@ -73,9 +73,21 @@
                 Dropdown
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Cuisines</a></li>
-                <li><a class="dropdown-item" href="#">Recipe Types</a></li>
-                <li><a class="dropdown-item" href="#">Main Ingredients</a></li>
+                <li>
+                  <a class="dropdown-item" href="{% url 'cuisines' %}"
+                    >Cuisines</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="{% url 'recipe-types' %}"
+                    >Recipe Types</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="{% url 'main-ingredients' %}"
+                    >Main Ingredients</a
+                  >
+                </li>
 
                 <li><hr class="dropdown-divider" /></li>
                 <li>

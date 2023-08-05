@@ -1,0 +1,11 @@
+{% extends 'main.html' %} {% block content %}
+<div style="font-size: 20px" class="container-lg">
+  {% for obj in objects %} {% if obj_type == 'main-ingredients' %}
+  <a href="{% url 'main-ingredients-id' obj.id %}">{{ obj }}</a>
+  {% elif obj_type == 'cuisines' %}
+  <a href="{% url 'cuisines-id' obj.id %}">{{ obj }}</a>
+  {% elif obj_type == 'recipe_types' %}
+  <a href="{% url 'recipe-types-id' obj.id %}">{{ obj }}</a>
+  {% endif %} {% endfor %}
+</div>
+{% endblock %}
