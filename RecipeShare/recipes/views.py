@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.db.models import Q 
 from .models import MainIngredient, Cuisine, PrepTime, Type, Recipe
 
 def recipes(request):
@@ -48,6 +49,32 @@ def recipes(request):
 
     return render(request, 'recipes/create_recipe.html', context)
 
+def advanced_search(request):
+    main_ingredients = MainIngredient.objects.all()
+    recipe_types = Type.objects.all()
+    prep_times = PrepTime.objects.all()
+    cuisines = Cuisine.objects.all()
+
+    if request.method == 'POST':
+        form = request.POST
+        recipes = Recipe.objects.filter(
+            Q(recipe_name__icontains=form['recipe_name']) &
+            Q(recipe_description__icontains=form['recipe_description']) &
+            Q(recipe_main_ingredient__ingredient_name__icontains=form['main_ingredient']) &
+            Q(recipe_cuisine__cuisine_name__icontains=form['cuisine']) &
+            Q(recipe_type__type_name__icontains=form['recipe_type']) & 
+            Q(recipe_prep_time__prep_time__icontains=form['prep_time'])  
+        ) 
+        context = { 'recipes': recipes }
+        return render(request, 'base/home.html', context)   
+        
+    context = {
+        'main_ingredients': main_ingredients,
+        'recipe_types': recipe_types,
+        'prep_times': prep_times,
+        'cuisines': cuisines
+    }
+    return render(request, 'recipes/search.html', context)
 
 def handle_recipe_pages(request, id):
     recipe = Recipe.objects.get(id=id)

@@ -1,0 +1,91 @@
+{% extends 'main.html' %} {% block content %}
+<form method="post" action="">
+  {% csrf_token %}
+
+  <div class="row">
+    <!-- First column -->
+    <div class="col-md-6">
+      <div class="mb-3">
+        <label for="recipe_name" class="form-label">Recipe Name</label>
+        <input
+          type="text"
+          class="form-control form-control-md"
+          name="recipe_name"
+          placeholder="Search with recipe names..."
+        />
+      </div>
+      <label for="main_ingredient" class="form-label">Main Ingredient</label>
+      <select
+        name="main_ingredient"
+        class="form-select mb-2"
+        aria-label="Default select example"
+      >
+        <option value="" selected>Any</option>
+        {% for ingredient in main_ingredients %}
+        <option value="{{ingredient}}">{{ ingredient }}</option>
+        {% endfor %}
+      </select>
+
+      <label for="cuisine" class="form-label">Cuisine</label>
+      <select
+        name="cuisine"
+        class="form-select mb-2"
+        aria-label="Default select example"
+      >
+        <option value="" selected>Any</option>
+        {% for cuisine in cuisines %}
+        <option value="{{cuisine}}">{{ cuisine }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <!-- Second column -->
+    <div class="col-md-6">
+      <label for="recipe_type" class="form-label">Recipe Type</label>
+      <select
+        name="recipe_type"
+        class="form-select mb-2"
+        aria-label="Default select example"
+      >
+        <option value="" selected>Any</option>
+        {% for recipe_type in recipe_types %}
+        <option value="{{recipe_type}}">{{ recipe_type }}</option>
+        {% endfor %}
+      </select>
+
+      <label for="prep_time" class="form-label">Preparation Time</label>
+      <select
+        name="prep_time"
+        class="form-select mb-2"
+        aria-label="Default select example"
+      >
+        <option value="" selected>Any</option>
+        {% for prep_time in prep_times %}
+        <option value="{{prep_time}}">{{ prep_time }}</option>
+        {% endfor %}
+      </select>
+      <div class="mb-3">
+        <label for="recipe_description" class="form-label"
+          >Recipe Description</label
+        >
+        <input
+          type="text"
+          class="form-control form-control-md"
+          name="recipe_description"
+          placeholder="Search with descriptions..."
+        />
+      </div>
+    </div>
+  </div>
+
+  <!-- Submit button -->
+  <button class="btn mt-2 btn-outline-success" type="submit">Search</button>
+</form>
+
+{% if messages %}
+<ul class="messages">
+  {% for message in messages %}
+  <li>{{ message }}</li>
+  {% endfor %}
+</ul>
+{% endif %} {% endblock %}
