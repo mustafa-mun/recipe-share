@@ -132,10 +132,15 @@ def handle_cuisines(request, id):
 
 def delete_recipe(request, id):
     recipe = Recipe.objects.get(id = id);
-    if request.method == 'GET':
-        context = { 'obj': recipe.recipe_name }
-        return render(request, 'delete.html', context)
+    if request.user is recipe.recipe_author or request.user.is_superuser:
 
-    if request.method == 'POST':
-        recipe.delete()
-        return redirect('home')  # Redirect to a home page
+        if request.method == 'GET':
+            context = { 'obj': recipe.recipe_name }
+            return render(request, 'delete.html', context)
+
+        if request.method == 'POST':
+            recipe.delete()
+            return redirect('home')  # Redirect to a home page
+    else:
+        context = {'error': 'You are not the owner of this recipe'}
+        return render(request, 'error.html', context)
