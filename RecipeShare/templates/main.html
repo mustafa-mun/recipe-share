@@ -103,7 +103,7 @@
             <a href="{% url 'log-out' %}">
               <button class="btn btn-danger">Log out</button>
             </a>
-            <a href="">
+            <a href="{% url 'user-profiles' user.id %}">
               <h3>{{ user.username }}</h3>
             </a>
           </div>

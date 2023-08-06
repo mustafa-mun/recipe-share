@@ -58,5 +58,9 @@ def log_out(request):
         logout(request)
     
     return redirect('home')
-        
 
+def user_profile(request, id):
+    user = User.objects.get(id=id)
+    recipes = Recipe.objects.filter(recipe_author=user)
+    context = { 'recipes': recipes }
+    return render(request, 'base/home.html', context)
