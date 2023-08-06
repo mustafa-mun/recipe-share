@@ -129,3 +129,13 @@ def handle_cuisines(request, id):
         'recipes': recipes,
     } 
     return render(request, 'base/home.html', context)
+
+def delete_recipe(request, id):
+    recipe = Recipe.objects.get(id = id);
+    if request.method == 'GET':
+        context = { 'obj': recipe.recipe_name }
+        return render(request, 'delete.html', context)
+
+    if request.method == 'POST':
+        recipe.delete()
+        return redirect('home')  # Redirect to a home page
