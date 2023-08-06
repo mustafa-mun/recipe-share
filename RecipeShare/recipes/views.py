@@ -65,7 +65,10 @@ def advanced_search(request):
             Q(recipe_type__type_name__icontains=form['recipe_type']) & 
             Q(recipe_prep_time__prep_time__icontains=form['prep_time'])  
         ) 
-        context = { 'recipes': recipes }
+        context = {
+            'recipes': recipes,
+            'msg': 'Found ' + str(len(recipes)) + ' results for your search query' 
+        }
         return render(request, 'base/home.html', context)   
         
     context = {
