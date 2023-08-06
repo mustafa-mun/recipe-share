@@ -5,13 +5,17 @@ import uuid
 class MainIngredient(models.Model):
   id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
   ingredient_name = models.CharField(max_length=100, unique=True)
-    
+  class Meta:
+    ordering = ('ingredient_name', )
+
   def __str__(self) -> str:
     return self.ingredient_name
 
 class Type(models.Model):
   id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
   type_name = models.CharField(max_length=100, unique=True)
+  class Meta:
+    ordering = ('type_name', )
     
   def __str__(self) -> str:
     return self.type_name
@@ -26,6 +30,8 @@ class PrepTime(models.Model):
 class Cuisine(models.Model):
   id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
   cuisine_name = models.CharField(max_length=100, unique=True)
+  class Meta:
+    ordering = ('cuisine_name', )  
     
   def __str__(self) -> str:
     return self.cuisine_name
