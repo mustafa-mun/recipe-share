@@ -62,5 +62,8 @@ def log_out(request):
 def user_profile(request, id):
     user = User.objects.get(id=id)
     recipes = Recipe.objects.filter(recipe_author=user)
-    context = { 'recipes': recipes }
+    context = { 
+        'recipes': recipes,
+        'msg': 'Recipes posted by ' + user.username + ":"
+    }
     return render(request, 'base/home.html', context)

@@ -1,5 +1,8 @@
 {% extends 'main.html' %} {% block content %}
 <div class="container text-center">
+  {% if msg %}
+  <h2>{{msg}}</h2>
+  {% endif %}
   <div class="row gy-5 row-cols-4">
     {% for recipe in recipes %}
     <div class="col-md-3 col-sm-6 col-12 text-start">
@@ -53,7 +56,11 @@
         >
       </p>
       {% if user.is_superuser or user == recipe.recipe_author %}
-      <a style="color: red; font-weight: bold" href="{% url 'delete-recipe' recipe.id %}">DELETE</a>
+      <a
+        style="color: red; font-weight: bold"
+        href="{% url 'delete-recipe' recipe.id %}"
+        >DELETE</a
+      >
       {% endif %}
       <a href="{% url 'recipe-page' recipe.id %}">
         <button class="btn btn-warning">See More</button>
