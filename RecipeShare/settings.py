@@ -85,6 +85,7 @@ DATABASES = {
     }
 }
 
+# postgres://recipe_share_database_user:G2NLtgMOcb69s4L0idDSQPMAb9x2lbsR@dpg-cj8h89djeehc73c3t1tg-a.oregon-postgres.render.com/recipe_share_database
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
