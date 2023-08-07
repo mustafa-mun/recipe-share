@@ -3,8 +3,10 @@
   <h1><span style="color: #190c8d">Recipe:</span> {{ recipe.recipe_name }}</h1>
   <p style="font-size: 19px">
     By
-    <span style="text-decoration: underline; font-weight: bold"
-      >{{recipe.recipe_author}}</span
+    <a
+      href="{% url 'user-profiles' recipe.recipe_author.id %}"
+      style="text-decoration: underline; font-weight: bold"
+      >{{recipe.recipe_author}}</a
     >
     <span style="color: rgb(158, 158, 158)">|</span>
     <span style="font-size: 16px; color: rgb(136, 135, 135)"
