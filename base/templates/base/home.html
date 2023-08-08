@@ -11,17 +11,26 @@
         src="{{ recipe.recipe_image }}"
         alt="recipe_image"
       />
-      <p
-        style="
-          font-size: 19px;
-          color: #190c8d;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        "
-      >
-        {{ recipe.recipe_name }}
-      </p>
+      <div style="display: flex; gap: 10px; align-items: center">
+        <p
+          style="
+            font-size: 19px;
+            color: #190c8d;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          "
+        >
+          {{ recipe.recipe_name }}
+        </p>
+        {% if user.is_superuser or user == recipe.recipe_author %}
+        <a
+          style="font-weight: bold; display: inline"
+          href="{% url 'update-recipe' recipe.id %}"
+          >EDIT</a
+        >
+        {% endif %}
+      </div>
       <!-- Include description if it's exist -->
       {% if recipe.recipe_description %}
       <p

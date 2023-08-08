@@ -36,9 +36,9 @@ def recipes(request):
             )
 
             # include optional fields if they exist
-            if form['recipe_description'] is not '':
+            if form['recipe_description'] != '':
                 recipe.recipe_description = form['recipe_description']
-            if form['recipe_image'] is not '':
+            if form['recipe_image'] != '':
                 recipe.recipe_image = form['recipe_image']
             recipe.save()
 
@@ -81,7 +81,7 @@ def advanced_search(request):
 
 def handle_recipe_pages(request, id):
     recipe = Recipe.objects.get(id=id)
-
+    
     context = {
         'recipe': recipe,
         
@@ -132,6 +132,47 @@ def handle_cuisines(request, id):
         'recipes': recipes,
     } 
     return render(request, 'base/home.html', context)
+
+def update_recipe(request, id):
+    recipe = Recipe.objects.get(id=id)
+    main_ingredients = MainIngredient.objects.all()
+    recipe_types = Type.objects.all()
+    prep_times = PrepTime.objects.all()
+    cuisines = Cuisine.objects.all()
+
+    context = {
+        'main_ingredients': main_ingredients,
+        'recipe_types': recipe_types,
+        'prep_times': prep_times,
+        'cuisines': cuisines,
+        'recipe': recipe
+    }
+
+    if request.method == 'POST':
+        try:
+            form = request.POST
+            recipe.recipe_name = form['recipe_name']
+            recipe.recipe_method = form['recipe_method']
+            recipe.recipe_ingredients = form['recipe_ingredients']
+            recipe.recipe_main_ingredient =  MainIngredient.objects.get(ingredient_name = form['main_ingredient'])
+            recipe.recipe_cuisine = Cuisine.objects.get(cuisine_name = form['cuisine'])
+            recipe.recipe_type = Type.objects.get(type_name = form['recipe_type'])
+            recipe.recipe_prep_time = PrepTime.objects.get(prep_time = form['prep_time'])
+
+            # include optional fields if they exist
+            if form['recipe_description'] != '':
+                recipe.recipe_description = form['recipe_description']
+            if form['recipe_image'] != '':
+                recipe.recipe_image = form['recipe_image']
+            # save the recipe    
+            recipe.save()
+
+            return redirect('home')
+        # handle errors
+        except Exception as e:
+            messages.warning(request, e)
+
+    return render(request, 'recipes/update_recipe.html', context)
 
 def delete_recipe(request, id):
     recipe = Recipe.objects.get(id = id);
