@@ -28,12 +28,16 @@ Django app for sharing and searching recipes.
 - Fill in the recipe details, including the name, ingredients, method, recipe type, preperation time, cuisine, main ingredient and an optional image and description.
 - Click on the "Submit" button to publish your recipe.
 
+![](screenshots/create-recipe.jpg)
+
 ### Basic Search
 - On the homepage, you'll find a search bar.
 - Enter the name of the recipe you're looking for and press "Enter."
 - The search results will display matching recipes.
 
+![](screenshots/basic-search.jpg)
 ### Advanced Search
 - On the homepage, click on the "More" dropdown menu and choose the "Advanced Search" option.
 - Specify your search criteria, such as cuisine type, preparation time, and more.
 - Click on the "Search" button to see recipes that match your criteria.
+![](screenshots/search.png)
