@@ -10,7 +10,7 @@ Django app for sharing and searching recipes.
 
 ## Features
 
-- `User Authentication:` Users can create an account, securely login/logout, and access protected routes using a token-based authentication system.
+- `User Authentication:` Users can create an account, securely login/logout
 
 - `Recipe Management:` Authorized users can create new recipes, update existing recipes, and delete recipes that they have created.
 
